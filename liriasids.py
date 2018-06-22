@@ -9,8 +9,7 @@ def getNewLiriasId(url):
     r = requests.get(url)
     if r.history:
         if 'docid' in r.url:
-            newid = r.url.split("docid=", 1)[1].split("&", 1)[0]
-            return newid
+            return r.url.split("docid=", 1)[1].split("&", 1)[0]
             #  parsedurl = urlparse(r.url)
             #  return parsedurl.query.split("&")[0][6:]
         else:
@@ -26,5 +25,6 @@ for oldid in oldids:
     urls.append('https://lirias.kuleuven.be/handle/123456789/{0}'.format(oldid))
 for url in urls:
     newid = getNewLiriasId(url)
-    newids.append(newid)
+    if newid != '':
+        newids.append(newid)
 print ','.join(newids)
