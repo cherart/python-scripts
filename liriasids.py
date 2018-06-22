@@ -1,4 +1,5 @@
 import requests
+# from urlparse import urlparse
 
 urls = []
 newids = []
@@ -8,10 +9,10 @@ def getNewLiriasId(url):
     r = requests.get(url)
     if r.history:
         if 'docid' in r.url:
-            afterdocid = r.url.split("docid=", 1)[1]
-            newid = afterdocid.split("&", 1)[0]
-            # print newid
+            newid = r.url.split("docid=", 1)[1].split("&", 1)[0]
             return newid
+            #  parsedurl = urlparse(r.url)
+            #  return parsedurl.query.split("&")[0][6:]
         else:
             print "No new id found for {0}".format(url)
             return ''
